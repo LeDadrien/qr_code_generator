@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Générateur QR Code WiFi</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -26,8 +27,8 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      width: 420px;           /* largeur fixe sur grand écran */
-      max-width: 75vw;        /* max 75% de la largeur de la fenêtre */
+      width: 420px;
+      max-width: 75vw;
       text-align: center;
       transition: width 0.3s ease;
     }
@@ -59,20 +60,32 @@
       width: 100%;
     }
 
+    button:hover {
+      background-color: #003a91;
+    }
+
     #qrcode, #logoPreview {
       display: none;
     }
 
     @media (max-width: 480px) {
       .container {
-        padding: 30px 20px;
-        width: 75vw;         /* 75% largeur écran sur mobile */
-        max-width: none;     /* enlever max-width pour mobile */
+        padding: 24px 16px;
+        width: 100vw;
+        max-width: none;
+        border-radius: 16px;
+        box-shadow: none;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
       }
 
       input, button {
-        width: 100%;
-        max-width: none;
+        font-size: 15px;
+        padding: 10px;
+        margin: 10px 0;
       }
     }
   </style>
@@ -109,23 +122,25 @@
       qrDiv.innerHTML = '';
 
       const qrCode = new QRCodeStyling({
-        width: 260,
-        height: 260,
-        type: "canvas",
-        data: `WIFI:T:WPA;S:${ssid};P:${password};;`,
-        image: "logo_just_un_toit.png",
-        dotsOptions: {
-          color: "#004BB1",
-          type: "rounded"
-        },
-        backgroundOptions: {
-          color: "transparent"
-        },
-        imageOptions: {
-          crossOrigin: "anonymous",
-          margin: 6
-        }
-      });
+  width: 260,
+  height: 260,
+  type: "canvas",
+  data: `WIFI:T:WPA;S:${ssid};P:${password};;`,
+  image: "logo_just_un_toit.png",
+  dotsOptions: {
+    color: "#004BB1",
+    type: "rounded"
+  },
+  backgroundOptions: {
+    color: "transparent"
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 10, // Augmenté pour mieux centrer
+    imageSize: 0.3 // Taille réduite à 30% du QR code
+  }
+});
+
 
       await new Promise((resolve) => {
         qrCode.append(qrDiv);
@@ -150,9 +165,9 @@
       doc.setFillColor(230, 240, 255);
       doc.rect(0, 0, pageWidth, pageHeight, 'F');
 
-      // Logo principal (non déformé)
+      // Logo principal
       const logoWidth = pageWidth * 0.6;
-      const logoHeight = logoWidth * 0.2; // ratio fixe
+      const logoHeight = logoWidth * 0.2;
       doc.addImage(logoImg, 'JPEG', (pageWidth - logoWidth) / 2, 10, logoWidth, logoHeight);
 
       let y = 10 + logoHeight + 20;
