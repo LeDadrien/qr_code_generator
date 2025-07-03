@@ -26,9 +26,10 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 420px;
+      width: 420px;           /* largeur fixe sur grand écran */
+      max-width: 75vw;        /* max 75% de la largeur de la fenêtre */
       text-align: center;
+      transition: width 0.3s ease;
     }
 
     h1 {
@@ -65,7 +66,8 @@
     @media (max-width: 480px) {
       .container {
         padding: 30px 20px;
-        width: 100%;
+        width: 75vw;         /* 75% largeur écran sur mobile */
+        max-width: none;     /* enlever max-width pour mobile */
       }
 
       input, button {
